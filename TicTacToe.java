@@ -16,7 +16,7 @@ public class TicTacToe
 
 
 	}
-
+	// Choose option X or O
 	public void chooseOption()
 	{
 		System.out.println("Enter X or O ");
@@ -36,6 +36,7 @@ public class TicTacToe
 			chooseOption();
 		}
 	}
+	// Display board
 	public void showBoard()
 	{
         System.out.println("|---|---|---|");
@@ -52,6 +53,7 @@ public class TicTacToe
                            + " |");
         System.out.println("|---|---|---|");
 	}
+	// Select location
 	public void selectLocation()
 	{
 		System.out.println("Choose location between 1 to 9 ");
@@ -66,6 +68,23 @@ public class TicTacToe
 			System.out.println("Location "+choose+ " is not empty. Choose another location");
 		}
 		}
+	// Toss to check who plays first
+	// Computer = Heads
+	// User = tails
+	public void tossChoice()
+	{
+		if (Math.random() < 0.5) 
+		{
+			System.out.println("Heads");
+			System.out.println("Computer will play first");
+		}
+		else
+		{
+			System.out.println("Tails");
+			System.out.println("User will play first");
+		}
+	}
+	// Method calling
 	public static void main(String[] args)
 	{
 		TicTacToe Game_object = new TicTacToe();
@@ -73,6 +92,7 @@ public class TicTacToe
 		Game_object.chooseOption();
 		Game_object.showBoard();
 		Game_object.selectLocation();
+		Game_object.tossChoice();
 	}
 }
 
