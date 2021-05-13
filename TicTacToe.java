@@ -67,16 +67,5 @@ public class TicTacToe
 				|| (board[3] == ch && board[5] == ch && board[7] == ch));
 	}
 
-	private static boolean computerMove(char computer,char player, char[] board) {
-	    
-		int place;
-		do {
-		place= (int) Math.floor(Math.random() * 9)+1;
-		}while(board[place] != ' ');
-		if (place == 0)	
-			return false;
-		board[place] = computer;
-		return checkWinner(board,computer);
-		
-	}
 }
+
