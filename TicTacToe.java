@@ -4,95 +4,66 @@ import java.awt.*;
 
 public class TicTacToe
 {
-	public char board[] = new char[10] ;
-	public String user_value;
-	public void createBoard()
-	{
-		for(int i=1; i<10 ;i++)
-		{
-			board[i]= ' ';
-			System.out.println("board:["+i+"]="+board[i]);
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		char[] board = new char[10];
+
+		System.out.println("WELCOME TO TIC-TAC-TOE");
+		assignBlankSpace(board);
+		showBoard(board);
+		System.out.println("Player:Enter the choice(X | O)");
+		char player = Character.toUpperCase(input.next().charAt(0));
+		char computer = (player == 'X' ? 'O' : 'X');
+		System.out.println("Player choice: " + player + "\nComputer choice: " + computer);
+		toss(player, computer, board, input);
+	}
+
+	public static void assignBlankSpace(char[] board) {
+
+		for (int i = 1; i < 10; i++)
+			board[i] = ' ';
+
+	}
+
+	public static void showBoard(char[] board) {
+		System.out.println("\tBOARD FORMAT");
+		System.out.println("\t  " + board[1] + "| " + board[2] + " | " + board[3] + "\n\t-----------");
+		System.out.println("\t  " + board[4] + "| " + board[5] + " | " + board[6] + "\n\t-----------");
+		System.out.println("\t  " + board[7] + "| " + board[8] + " | " + board[9]);
+	}
+
+	public static boolean playerMove(char player, char[] board, Scanner input) {
+		System.out.println("Enter the position player want to move(1-9)");
+		int pos = input.nextInt();
+		if (board[pos] == ' ') {
+			board[pos] = player;
+			showBoard(board);
+		} else
+			System.out.println("Place is occupied");
+		return playerMove(player, board, input);
+	}
+	
+	public static void toss(char player, char computer, char[] board, Scanner input) {
+		int HEAD = 1;
+		double toss = Math.floor(Math.random() * 10) % 2;
+		if (toss == HEAD) {
+			System.out.println("Player will make the first move");
+		
+		} else {
+			System.out.println("Computer will make the first move");
+	
 		}
 
-
 	}
-	// Choose option X or O
-	public void chooseOption()
-	{
-		System.out.println("Enter X or O ");
-		Scanner sc_object = new Scanner(System.in);
-		user_value = sc_object.next();
-		if(user_value.equals("x") || user_value.equals("X"))
-		{
-			System.out.println(" computer chooses  'O' ");
-		}
-		else if(user_value.equals("o") || user_value.equals("O"))
-		{
-			System.out.println(" computer chooses 'X' ");
-		}
-		else
-		{
-			System.out.println("invalid input");
-			chooseOption();
-		}
-	}
-	// Display board
-	public void showBoard()
-	{
-        System.out.println("|---|---|---|");
-        System.out.println("| " + board[1] + " | "
-                           + board[2] + " | " + board[3]
-                           + " |");
-        System.out.println("|-----------|");
-        System.out.println("| " + board[4] + " | "
-                           + board[5] + " | " + board[6]
-                           + " |");
-        System.out.println("|-----------|");
-        System.out.println("| " + board[7] + " | "
-                           + board[8] + " | " + board[9]
-                           + " |");
-        System.out.println("|---|---|---|");
-	}
-	// Select location
-	public void selectLocation()
-	{
-		System.out.println("Choose location between 1 to 9 ");
-		Scanner select = new Scanner(System.in);
-		int choose = select.nextInt();
-		if(board[choose] == ' ')
-		{
-			System.out.println("Location is empty, enter position");
-		}
-		else
-		{
-			System.out.println("Location "+choose+ " is not empty. Choose another location");
-		}
-		}
-	// Toss to check who plays first
-	// Computer = Heads
-	// User = tails
-	public void tossChoice()
-	{
-		if (Math.random() < 0.5) 
-		{
-			System.out.println("Heads");
-			System.out.println("Computer will play first");
-		}
-		else
-		{
-			System.out.println("Tails");
-			System.out.println("User will play first");
-		}
-	}
-	// Method calling
-	public static void main(String[] args)
-	{
-		TicTacToe Game_object = new TicTacToe();
-		Game_object.createBoard();
-		Game_object.chooseOption();
-		Game_object.showBoard();
-		Game_object.selectLocation();
-		Game_object.tossChoice();
+	
+	public static boolean checkWinner(char[] board, char ch) {
+		return ((board[1] == ch && board[2] == ch && board[3] == ch)
+				|| (board[4] == ch && board[5] == ch && board[6] == ch)
+				|| (board[7] == ch && board[8] == ch && board[9] == ch)
+				|| (board[1] == ch && board[4] == ch && board[7] == ch)
+				|| (board[2] == ch && board[5] == ch && board[8] == ch)
+				|| (board[3] == ch && board[6] == ch && board[9] == ch)
+				|| (board[1] == ch && board[5] == ch && board[9] == ch)
+				|| (board[3] == ch && board[5] == ch && board[7] == ch));
 	}
 }
-
