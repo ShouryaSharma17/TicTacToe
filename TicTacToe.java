@@ -38,9 +38,20 @@ public class TicTacToe
 		if (board[pos] == ' ') {
 			board[pos] = player;
 			showBoard(board);
+			return (checkWinner(board, player));
 		} else
 			System.out.println("Place is occupied");
 		return playerMove(player, board, input);
+	}
+	
+	public static boolean computerMove(char computer, char player, char[] board) {
+		int check = nextMove(computer, player, board);
+		if (check == 0)
+			return false;
+		board[check] = computer;
+		showBoard(board);
+		return checkWinner(board, computer);
+
 	}
 	
 	public static void toss(char player, char computer, char[] board, Scanner input) {
@@ -67,5 +78,82 @@ public class TicTacToe
 				|| (board[3] == ch && board[5] == ch && board[7] == ch));
 	}
 
-}
+	public static int couldBeWinner(char ch, char[] board) {
+		if (board[1] == ch && board[2] == ch && board[3] == ' ')
+			return 3;
+		else if (board[1] == ch && board[3] == ch && board[2] == ' ')
+			return 2;
+		else if (board[2] == ch && board[3] == ch && board[1] == ' ')
+			return 1;
+		else if (board[4] == ch && board[5] == ch && board[6] == ' ')
+			return 6;
+		else if (board[4] == ch && board[6] == ch && board[5] == ' ')
+			return 5;
+		else if (board[6] == ch && board[5] == ch && board[4] == ' ')
+			return 4;
+		else if (board[7] == ch && board[8] == ch && board[9] == ' ')
+			return 9;
+		else if (board[7] == ch && board[9] == ch && board[8] == ' ')
+			return 8;
+		else if (board[8] == ch && board[9] == ch && board[7] == ' ')
+			return 7;
 
+		else if (board[1] == ch && board[4] == ch && board[7] == ' ')
+			return 7;
+		else if (board[1] == ch && board[7] == ch && board[4] == ' ')
+			return 4;
+		else if (board[7] == ch && board[4] == ch && board[1] == ' ')
+			return 1;
+		else if (board[5] == ch && board[8] == ch && board[2] == ' ')
+			return 2;
+		else if (board[5] == ch && board[2] == ch && board[8] == ' ')
+			return 8;
+		else if (board[8] == ch && board[2] == ch && board[5] == ' ')
+			return 5;
+		else if (board[3] == ch && board[6] == ch && board[9] == ' ')
+			return 9;
+		else if (board[3] == ch && board[9] == ch && board[6] == ' ')
+			return 6;
+		else if (board[6] == ch && board[9] == ch && board[3] == ' ')
+			return 3;
+
+		else if (board[1] == ch && board[5] == ch && board[9] == ' ')
+			return 9;
+		else if (board[1] == ch && board[9] == ch && board[5] == ' ')
+			return 5;
+		else if (board[5] == ch && board[9] == ch && board[1] == ' ')
+			return 1;
+
+		else if (board[3] == ch && board[5] == ch && board[7] == ' ')
+			return 7;
+		else if (board[7] == ch && board[5] == ch && board[3] == ' ')
+			return 3;
+		else if (board[7] == ch && board[3] == ch && board[5] == ' ')
+			return 5;
+		return 0;
+
+	}
+	
+	private static int nextMove(char computer, char player, char[] board) {
+		int check = couldBeWinner(computer, board);
+		if (check == 0)
+			check = couldBeWinner(player, board);
+		if (check == 0) {
+			if (board[1] == ' ')
+				return 1;
+			else if (board[3] == ' ')
+				return 3;
+			else if (board[7] == ' ')
+				return 7;
+			else if (board[9] == ' ')
+				return 9;
+			else if (board[5] == ' ')
+				return 5;
+		}
+	
+		return check;
+	}
+
+
+
+}
