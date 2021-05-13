@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class TicTacToe
 {
-	public static void main(String[] args) {
+		public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		char[] board = new char[10];
 
@@ -43,7 +43,7 @@ public class TicTacToe
 			System.out.println("Place is occupied");
 		return playerMove(player, board, input);
 	}
-	
+
 	public static boolean computerMove(char computer, char player, char[] board) {
 		int check = nextMove(computer, player, board);
 		if (check == 0)
@@ -53,20 +53,22 @@ public class TicTacToe
 		return checkWinner(board, computer);
 
 	}
-	
+
 	public static void toss(char player, char computer, char[] board, Scanner input) {
 		int HEAD = 1;
 		double toss = Math.floor(Math.random() * 10) % 2;
 		if (toss == HEAD) {
 			System.out.println("Player will make the first move");
-		
+			alternateTurn1(player, board, input, computer);
+
 		} else {
 			System.out.println("Computer will make the first move");
-	
+			alternateTurn2(player, board, input, computer);
+
 		}
 
 	}
-	
+
 	public static boolean checkWinner(char[] board, char ch) {
 		return ((board[1] == ch && board[2] == ch && board[3] == ch)
 				|| (board[4] == ch && board[5] == ch && board[6] == ch)
@@ -133,7 +135,7 @@ public class TicTacToe
 		return 0;
 
 	}
-	
+
 	private static int nextMove(char computer, char player, char[] board) {
 		int check = couldBeWinner(computer, board);
 		if (check == 0)
@@ -160,10 +162,37 @@ public class TicTacToe
 			else if (board[8] == ' ')
 				return 8;
 		}
-	
+
 		return check;
 	}
 
+	public static void alternateTurn1(char player, char[] board, Scanner input, char computer) {
+		for (int i = 1; i <= 9; i++) {
+			if (i % 2 != 0) {
+				System.out.println("Player turn");
+				if (playerMove(player, board, input))
+					System.out.println("Player wins the game");
+			} else {
+				System.out.println("Computer Turn");
+				if (computerMove(computer, player, board))
+					System.out.println("Computer wins the game");
+			}
+		}
+	}
 
+	public static void alternateTurn2(char player, char[] board, Scanner input, char computer) {
+		for (int i = 1; i <= 9; i++) {
+			if (i % 2 != 0) {
+				System.out.println("Computer Turn");
+				if (computerMove(computer, player, board))
+					System.out.println("Computer wins the game");
+
+			} else {
+				System.out.println("Player turn");
+				if (playerMove(player, board, input))
+					System.out.println("Player wins the game");
+			}
+		}
+	}
 
 }
